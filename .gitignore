@@ -1,0 +1,9 @@
+# VS Code settings and credentials (IMPORTANT: contains sftp.json with password)
+.vscode/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
