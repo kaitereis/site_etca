@@ -878,6 +878,38 @@ a:hover {
   margin: 0 10px;
 }
 
+.team .team-content {
+  padding-left: 30px;
+}
+
+.team .team-content h4 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.team .team-content .line {
+  width: 40px;
+  height: 2px;
+  background-color: #457c55;
+  margin-bottom: 20px;
+}
+
+.team .team-content p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 991px) {
+  .team .team-content {
+    padding-left: 0;
+    margin-top: 30px;
+  }
+}
+
 /* ----------------------------------------------------------------
      [ End Team ]
 -----------------------------------------------------------------*/
@@ -1211,7 +1243,8 @@ a:hover {
   padding-top: 60px;
 }
 
-.portfolio .filtering span {
+.portfolio .filtering span,
+.portfolio .filtering-imoveis span {
   padding: 9px 30px;
   border-radius: 30px;
   letter-spacing: 1px;
@@ -1221,7 +1254,8 @@ a:hover {
   cursor: pointer;
 }
 
-.portfolio .filtering .active {
+.portfolio .filtering .active,
+.portfolio .filtering-imoveis .active {
   background: #457c55;
   color: #fff;
   -webkit-box-shadow: 0px 10px 30px -4px rgba(0, 0, 0, 0.2);
@@ -2451,7 +2485,8 @@ footer p {
     padding: 60px 15px 120px;
   }
 
-  .portfolio .filtering span {
+  .portfolio .filtering span,
+  .portfolio .filtering-imoveis span {
     padding: 9px 15px;
     margin: 0;
   }
@@ -2467,7 +2502,8 @@ footer p {
     line-height: 1.4;
   }
 
-  .portfolio .filtering span {
+  .portfolio .filtering span,
+  .portfolio .filtering-imoveis span {
     margin-bottom: 10px;
   }
 

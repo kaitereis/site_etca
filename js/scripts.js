@@ -119,24 +119,26 @@ $(function () {
     });
 
     // team owlCarousel
-    $('.team .owl-carousel').owlCarousel({
-        loop: true,
-        margin: 30,
-        mouseDrag: true,
-        autoplay: true,
-        dotsEach: true,
-        responsiveClass: true,
-        responsive: {
-            0: {
-                items: 1
-            },
-            600: {
-                items: 2
-            },
-            1000: {
-                items: 3
+    $('.team .owl-carousel').each(function() {
+        var isSingle = $(this).hasClass('single-item');
+        $(this).owlCarousel({
+            loop: true,
+            margin: isSingle ? 0 : 30,
+            mouseDrag: true,
+            autoplay: true,
+            autoplayTimeout: isSingle ? 3000 : 5000,
+            dotsEach: true,
+            responsiveClass: true,
+            responsive: isSingle ? {
+                0: { items: 1 },
+                600: { items: 1 },
+                1000: { items: 1 }
+            } : {
+                0: { items: 1 },
+                600: { items: 2 },
+                1000: { items: 3 }
             }
-        }
+        });
     });
 
     // === End owl-carousel === //
