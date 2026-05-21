@@ -851,7 +851,7 @@
 
     <!-- ==== Start Imóveis à venda -->
 
-    <section class="imoveis-venda section-padding" data-scroll-index="4"
+    <section class="imoveis-venda section-padding portfolio" data-scroll-index="4"
         style="padding-top: 60px; padding-bottom: 60px;">
         <div class="container">
             <div class="row">
@@ -861,9 +861,20 @@
                     <span></span>
                 </div>
             </div>
-            <div class="row">
+
+            <!-- filter links -->
+            <div class="filtering filtering-imoveis text-center mb-30 col-sm-12">
+                <span data-filter='*' class="active">Todos</span>
+                <span data-filter='.rurais'>Rurais</span>
+                <span data-filter='.residenciais'>Residenciais</span>
+                <span data-filter='.lotes'>Lotes</span>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row gallery-imoveis full-width">
                 <!-- Card 1 -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 items items-imoveis rurais">
                     <div class="card-imovel">
                         <div class="card-img">
                             <img src="img/imoveis/1.jpg" alt="Imóvel 1">
@@ -878,7 +889,7 @@
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 items items-imoveis rurais">
                     <div class="card-imovel">
                         <div class="card-img">
                             <img src="img/imoveis/2.jpg" alt="Imóvel 2">
@@ -893,24 +904,21 @@
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 items items-imoveis residenciais">
                     <div class="card-imovel">
                         <div class="card-img">
                             <img src="img/imoveis/3.jpg" alt="Imóvel 3">
                         </div>
                         <div class="card-body">
-                            <p><b>Sítio Recanto Verde – São Sebastião do Paraíso/MG</b><br>
-                                Área de 18 hectares, com plantio de eucalipto e reserva legal averbada. Possui casa sede
-                                nova, curral e nascente perene. Excelente opção para quem busca renda com
-                                reflorestamento e tranquilidade no campo.</p>
+                            <p><b>Casa Jardim Aeroporto – Monte Santo de Minas/MG</b><br>
+                                Casa moderna com 3 quartos (1 suíte), área gourmet completa, garagem coberta e fino
+                                acabamento. Localizada em bairro residencial tranquilo e seguro.</p>
                             <a href="https://wa.me/5535998099671" class="btn btn-primary">Solicitar informações</a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <!-- Card 4 -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 items items-imoveis rurais">
                     <div class="card-imovel">
                         <div class="card-img">
                             <img src="img/imoveis/4.jpg" alt="Imóvel 4">
@@ -925,22 +933,21 @@
                     </div>
                 </div>
                 <!-- Card 5 -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 items items-imoveis lotes">
                     <div class="card-imovel">
                         <div class="card-img">
                             <img src="img/imoveis/5.jpg" alt="Imóvel 5">
                         </div>
                         <div class="card-body">
-                            <p><b>Sítio Estância das Águas – Monte Santos de Minas/MG</b><br>
-                                Sítio de 9 hectares, com belas paisagens, cachoeira dentro da propriedade e pomar
-                                diversificado. Conta com chalé rústico, energia elétrica e trilhas ecológicas. Local
-                                perfeito para turismo rural ou retiro familiar.</p>
+                            <p><b>Lote Residencial Ville – Monte Santo de Minas/MG</b><br>
+                                Excelente lote com 300 m², topografia plana, pronto para construir. Infraestrutura
+                                completa com asfalto, água, esgoto e iluminação pública.</p>
                             <a href="https://wa.me/5535998099671" class="btn btn-primary">Solicitar informações</a>
                         </div>
                     </div>
                 </div>
                 <!-- Card 6 -->
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 items items-imoveis rurais">
                     <div class="card-imovel">
                         <div class="card-img">
                             <img src="img/imoveis/6.jpg" alt="Imóvel 6">
@@ -959,9 +966,6 @@
     </section>
 
     <!-- End Imóveis à venda ==== -->
-
-
-
 
 
     <!-- =====================================
@@ -1548,6 +1552,24 @@
             window.addEventListener('load', clampHorizontalOverflow);
             window.addEventListener('resize', clampHorizontalOverflow);
         })();
+    </script>
+
+    <!-- Script para inicialização do Isotope da seção Imóveis -->
+    <script>
+        $(window).on("load", function () {
+            var $galleryImoveis = $('.gallery-imoveis').isotope({
+                itemSelector: '.items-imoveis'
+            });
+
+            $('.filtering-imoveis').on('click', 'span', function () {
+                var filterValue = $(this).attr('data-filter');
+                $galleryImoveis.isotope({ filter: filterValue });
+            });
+
+            $('.filtering-imoveis').on('click', 'span', function () {
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+        });
     </script>
 
 </body>
