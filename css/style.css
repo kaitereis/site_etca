@@ -2296,6 +2296,10 @@ a:hover {
   border-color: #457c55;
 }
 
+.contact.section-padding {
+  padding-bottom: 40px;
+}
+
 /* ----------------------------------------------------------------
      [ End Contact ]
 -----------------------------------------------------------------*/
@@ -2327,17 +2331,17 @@ a:hover {
 -----------------------------------------------------------------*/
 footer {
   background: #111;
-  padding: 80px 0;
+  padding: 30px 0;
 }
 
 footer .social a {
   color: #fff;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
   border-radius: 50%;
   background: #222;
-  margin: 15px 5px;
+  margin: 8px 5px;
 }
 
 footer .social a:hover {
