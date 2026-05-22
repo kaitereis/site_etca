@@ -3,6 +3,87 @@
 error_reporting(0);
 ini_set('display_errors', 0);
 
+// Helper function to send email with various methods
+function attempt_mail($to, $subject, $message, $headersStr, $mode5, $fromEmail, $fromName, $replyTo, $useSuppress = true) {
+    if ($mode5 === 'socket') {
+        $host = '127.0.0.1';
+        $port = 25;
+        $timeout = 2;
+        $socket = $useSuppress ? @fsockopen($host, $port, $errno, $errstr, $timeout) : fsockopen($host, $port, $errno, $errstr, $timeout);
+        if (!$socket) {
+            return false;
+        }
+        
+        $readResponse = function($socket) {
+            $response = "";
+            while (($line = fgets($socket, 512)) !== false) {
+                $response .= $line;
+                if (substr($line, 3, 1) == " ") {
+                    break;
+                }
+            }
+            return $response;
+        };
+        
+        $readResponse($socket);
+        fwrite($socket, "EHLO " . $_SERVER['SERVER_NAME'] . "\r\n");
+        $readResponse($socket);
+        
+        fwrite($socket, "MAIL FROM:<" . $fromEmail . ">\r\n");
+        $readResponse($socket);
+        
+        fwrite($socket, "RCPT TO:<" . $to . ">\r\n");
+        $rcptRes = $readResponse($socket);
+        if (strpos($rcptRes, '250') === false && strpos($rcptRes, '251') === false) {
+            fclose($socket);
+            return false;
+        }
+        
+        fwrite($socket, "DATA\r\n");
+        $readResponse($socket);
+        
+        $mailHeaders = "MIME-Version: 1.0\r\n";
+        $mailHeaders .= "Content-Type: text/plain; charset=\"UTF-8\"\r\n";
+        $mailHeaders .= "From: " . $fromName . " <" . $fromEmail . ">\r\n";
+        $mailHeaders .= "To: " . $to . "\r\n";
+        $mailHeaders .= "Reply-To: " . $replyTo . "\r\n";
+        $mailHeaders .= "Subject: " . $subject . "\r\n";
+        
+        fwrite($socket, $mailHeaders . "\r\n" . $message . "\r\n.\r\n");
+        $dataRes = $readResponse($socket);
+        
+        fwrite($socket, "QUIT\r\n");
+        fclose($socket);
+        
+        return strpos($dataRes, '250') !== false;
+    }
+    
+    $param5 = null;
+    if ($mode5 === 'f') {
+        $param5 = "-f " . $fromEmail;
+    } elseif ($mode5 === 'f_nospace') {
+        $param5 = "-f" . $fromEmail;
+    } elseif ($mode5 === 'r') {
+        $param5 = "-r " . $fromEmail;
+    } elseif ($mode5 === 'r_nospace') {
+        $param5 = "-r" . $fromEmail;
+    }
+    
+    if ($param5 !== null) {
+        if ($useSuppress) {
+            return @mail($to, $subject, $message, $headersStr, $param5);
+        } else {
+            return mail($to, $subject, $message, $headersStr, $param5);
+        }
+    } else {
+        if ($useSuppress) {
+            return @mail($to, $subject, $message, $headersStr);
+        } else {
+            return mail($to, $subject, $message, $headersStr);
+        }
+    }
+}
+
 // Configure sender domain
 $domain = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : 'grupoetca.com.br';
 if (substr($domain, 0, 4) == 'www.') {
@@ -67,32 +148,40 @@ if (isset($_GET['debug']) && $_GET['debug'] == '1') {
         );
 
         $attempts = array(
-            array($headers1, "\r\n", true, "CRLF (\\r\\n), Com Nome no From, Com parâmetro -f"),
-            array($headers1, "\r\n", false, "CRLF (\\r\\n), Com Nome no From, Sem parâmetro -f"),
-            array($headers1, "\n", true, "LF (\\n), Com Nome no From, Com parâmetro -f"),
-            array($headers1, "\n", false, "LF (\\n), Com Nome no From, Sem parâmetro -f"),
-            array($headers2, "\r\n", true, "CRLF (\\r\\n), Apenas e-mail no From, Com parâmetro -f"),
-            array($headers2, "\r\n", false, "CRLF (\\r\\n), Apenas e-mail no From, Sem parâmetro -f"),
-            array($headers2, "\n", true, "LF (\\n), Apenas e-mail no From, Com parâmetro -f"),
-            array($headers2, "\n", false, "LF (\\n), Apenas e-mail no From, Sem parâmetro -f")
+            array($headers1, "\r\n", 'f', "CRLF (\\r\\n), Com Nome no From, Com parâmetro '-f [email]'"),
+            array($headers1, "\r\n", 'f_nospace', "CRLF (\\r\\n), Com Nome no From, Com parâmetro '-f[email]'"),
+            array($headers1, "\r\n", 'r', "CRLF (\\r\\n), Com Nome no From, Com parâmetro '-r [email]' (Comum na Locaweb)"),
+            array($headers1, "\r\n", 'r_nospace', "CRLF (\\r\\n), Com Nome no From, Com parâmetro '-r[email]' (Locaweb Linux)"),
+            array($headers1, "\r\n", 'none', "CRLF (\\r\\n), Com Nome no From, Sem 5º parâmetro"),
+            
+            array($headers1, "\n", 'f', "LF (\\n), Com Nome no From, Com parâmetro '-f [email]'"),
+            array($headers1, "\n", 'r', "LF (\\n), Com Nome no From, Com parâmetro '-r [email]'"),
+            array($headers1, "\n", 'none', "LF (\\n), Com Nome no From, Sem 5º parâmetro"),
+            
+            array($headers2, "\r\n", 'f', "CRLF (\\r\\n), Apenas e-mail no From, Com parâmetro '-f [email]'"),
+            array($headers2, "\r\n", 'r', "CRLF (\\r\\n), Apenas e-mail no From, Com parâmetro '-r [email]'"),
+            array($headers2, "\r\n", 'none', "CRLF (\\r\\n), Apenas e-mail no From, Sem 5º parâmetro"),
+            
+            array($headers2, "\n", 'f', "LF (\\n), Apenas e-mail no From, Com parâmetro '-f [email]'"),
+            array($headers2, "\n", 'r', "LF (\\n), Apenas e-mail no From, Com parâmetro '-r [email]'"),
+            array($headers2, "\n", 'none', "LF (\\n), Apenas e-mail no From, Sem 5º parâmetro"),
+            
+            array(array(), "", 'socket', "SMTP Local Socket Relay na porta 25")
         );
         
         $success = false;
         foreach ($attempts as $index => $attempt) {
             $headersList = $attempt[0];
             $eol = $attempt[1];
-            $useF = $attempt[2];
+            $mode5 = $attempt[2];
             $desc = $attempt[3];
             
             $headersStr = implode($eol, $headersList);
             
             echo "Tentativa " . ($index + 1) . " ($desc): ";
             
-            if ($useF) {
-                $sent = @mail($to, "Teste de Contato ETCA " . ($index + 1), $testEmailText, $headersStr, "-f " . $fromEmail);
-            } else {
-                $sent = @mail($to, "Teste de Contato ETCA " . ($index + 1), $testEmailText, $headersStr);
-            }
+            // Set useSuppress = false in debug mode so PHP warnings are printed on screen
+            $sent = attempt_mail($to, "Teste de Contato ETCA " . ($index + 1), $testEmailText, $headersStr, $mode5, $fromEmail, $fromName, $fromEmail, false);
             
             if ($sent) {
                 echo "<strong style='color: green;'>SUCESSO</strong><br>";
@@ -154,28 +243,31 @@ try
         $sent = false;
         
         $attempts = array(
-            array($headers1, "\r\n", true),
-            array($headers1, "\r\n", false),
-            array($headers1, "\n", true),
-            array($headers1, "\n", false),
-            array($headers2, "\r\n", true),
-            array($headers2, "\r\n", false),
-            array($headers2, "\n", true),
-            array($headers2, "\n", false)
+            array($headers1, "\r\n", 'f'),
+            array($headers1, "\r\n", 'f_nospace'),
+            array($headers1, "\r\n", 'r'),
+            array($headers1, "\r\n", 'r_nospace'),
+            array($headers1, "\r\n", 'none'),
+            array($headers1, "\n", 'f'),
+            array($headers1, "\n", 'r'),
+            array($headers1, "\n", 'none'),
+            array($headers2, "\r\n", 'f'),
+            array($headers2, "\r\n", 'r'),
+            array($headers2, "\r\n", 'none'),
+            array($headers2, "\n", 'f'),
+            array($headers2, "\n", 'r'),
+            array($headers2, "\n", 'none'),
+            array(array(), "", 'socket')
         );
         
         foreach ($attempts as $attempt) {
             $headersList = $attempt[0];
             $eol = $attempt[1];
-            $useF = $attempt[2];
+            $mode5 = $attempt[2];
             
             $headersStr = implode($eol, $headersList);
             
-            if ($useF) {
-                $sent = @mail($to, $subject, $emailText, $headersStr, "-f " . $fromEmail);
-            } else {
-                $sent = @mail($to, $subject, $emailText, $headersStr);
-            }
+            $sent = attempt_mail($to, $subject, $emailText, $headersStr, $mode5, $fromEmail, $fromName, $replyTo, true);
             
             if ($sent) {
                 break;
