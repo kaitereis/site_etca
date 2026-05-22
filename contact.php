@@ -1,18 +1,18 @@
 <?php
 
 // configure
-$from = 'Demo contact form <demo@domain.com>';
-$sendTo = 'Demo contact form <demo@domain.com>'; // Add Your Email
-$subject = 'New message from contact form';
-$fields = array('name' => 'Name', 'subject' => 'Subject', 'email' => 'Email', 'message' => 'Message'); // array variable name => Text to appear in the email
-$okMessage = 'Contact form successfully submitted. Thank you, I will get back to you soon!';
-$errorMessage = 'There was an error while submitting the form. Please try again later';
+$from = 'Site ETCA <no-reply@grupoetca.com.br>';
+$sendTo = 'etcatopografia@yahoo.com.br'; // Add Your Email
+$subject = 'Nova mensagem do formulario de contato';
+$fields = array('name' => 'Nome', 'phone' => 'Telefone', 'subject' => 'Assunto', 'email' => 'E-mail', 'message' => 'Mensagem'); // array variable name => Text to appear in the email
+$okMessage = 'Obrigado! Sua mensagem foi entregue com sucesso e recebemos seu contato.';
+$errorMessage = 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.';
 
 // let's do the sending
 
 try
 {
-    $emailText = "You have new message from contact form\n=============================\n";
+    $emailText = "Você recebeu uma nova mensagem do formulário de contato:\n=============================\n";
 
     foreach ($_POST as $key => $value) {
 
@@ -21,15 +21,21 @@ try
         }
     }
 
+    $replyTo = !empty($_POST['email']) ? $_POST['email'] : $from;
     $headers = array('Content-Type: text/plain; charset="UTF-8";',
         'From: ' . $from,
-        'Reply-To: ' . $from,
+        'Reply-To: ' . $replyTo,
+        'Cc: kaitereies@gmail.com',
         'Return-Path: ' . $from,
     );
     
-    mail($sendTo, $subject, $emailText, implode("\n", $headers));
+    $ok = @mail($sendTo, $subject, $emailText, implode("\r\n", $headers));
 
-    $responseArray = array('type' => 'success', 'message' => $okMessage);
+    if ($ok) {
+        $responseArray = array('type' => 'success', 'message' => $okMessage);
+    } else {
+        $responseArray = array('type' => 'danger', 'message' => $errorMessage);
+    }
 }
 catch (\Exception $e)
 {

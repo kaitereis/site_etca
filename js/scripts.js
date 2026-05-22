@@ -228,6 +228,7 @@ $(window).on("load", function () {
                 type: "POST",
                 url: url,
                 data: $(this).serialize(),
+                dataType: 'json',
                 success: function (data) {
                     var messageAlert = 'alert-' + data.type;
                     var messageText = data.message;
@@ -235,8 +236,14 @@ $(window).on("load", function () {
                     var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
                     if (messageAlert && messageText) {
                         $('#contact-form').find('.messages').html(alertBox);
-                        $('#contact-form')[0].reset();
+                        if (data.type === 'success') {
+                            $('#contact-form')[0].reset();
+                        }
                     }
+                },
+                error: function () {
+                    var alertBox = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.</div>';
+                    $('#contact-form').find('.messages').html(alertBox);
                 }
             });
             return false;

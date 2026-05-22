@@ -92,6 +92,7 @@ span, a, a:hover {
 	padding-bottom: 30px;
 	margin-bottom: 80px;
 	position: relative;
+	overflow: hidden !important;
 
 	&:before{
 		content: '';
@@ -125,6 +126,8 @@ span, a, a:hover {
 	p{
 		margin-top: 15px;
 		padding: 0 30px;
+		overflow: visible !important;
+		white-space: normal !important;
 	}
 
 	span{

@@ -1266,118 +1266,142 @@
 
 
     <!-- =====================================
-        ==== Start Contact -->
+        ==== Start Contact & Social Networks -->
 
-    <section class="contact section-padding" data-scroll-index="6">
+    <section class="contact-section-wrapper section-padding" data-scroll-index="6"
+        style="padding-top: 80px; padding-bottom: 80px;">
         <div class="container">
-            <div class="row">
 
-                <div class="section-head text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                    <h4>Contatos</h4>
+            <!-- SUB-SECTION 1: NOVIDADES (REDES SOCIAIS) -->
+            <div class="row">
+                <div class="section-head text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1"
+                    style="margin-bottom: 50px;">
+                    <h4>Novidades</h4>
+                    <p>Confira as mais novas notícias e novidades da empresa em nossas redes sociais.</p>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-80">
+                <div class="col-lg-5 col-md-6 mb-sm30">
+                    <a href="https://www.instagram.com/etcaconsultoria/" target="_blank" class="social-card-item">
+                        <div class="social-card-icon">
+                            <i class="icofont icofont-social-instagram"></i>
+                        </div>
+                        <h5>Instagram</h5>
+                        <span>@etcaconsultoria</span>
+                    </a>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <a href="https://www.linkedin.com" target="_blank" class="social-card-item">
+                        <div class="social-card-icon">
+                            <i class="icofont icofont-brand-linkedin"></i>
+                        </div>
+                        <h5>LinkedIn</h5>
+                        <span>ETCA Consultoria</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- SUB-SECTION 2: CONTATO -->
+            <div class="row" style="margin-top: 50px;">
+                <div class="section-head text-center col-lg-8 offset-lg-2 col-md-10 offset-md-1"
+                    style="margin-bottom: 50px;">
+                    <h4>Contato</h4>
                     <p>Nosso time está preparado para dar o suporte necessário para o seu projeto. Entre em contato.</p>
                     <span></span>
                 </div>
+            </div>
 
-                <div class="col-lg-5">
-                    <div class="info mb-md50">
-                        <div class="item">
-                            <span class="icon"><i class="icofont icofont-phone"></i></span>
-                            <div class="cont">
-                                <h6>Fone e Whatsapp: </h6>
-                                <p>(35) 99809-9671</p>
-                            </div>
+            <!-- CONTACT CARDS -->
+            <div class="row justify-content-center mb-50">
+                <div class="col-lg-4 col-md-6 mb-sm30">
+                    <div class="contact-card-item">
+                        <div class="contact-card-icon">
+                            <i class="icofont icofont-map"></i>
                         </div>
-                        <div class="item">
-                            <span class="icon"><i class="icofont icofont-map"></i></span>
-                            <div class="cont">
-                                <h6>Endereço: </h6>
-                                <p>Rua Dr. Aristides Cunha 320</p>
-                                <p>Centro - Monte Santo de Minas MG</p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <span class="icon"><i class="icofont icofont-email"></i></span>
-                            <div class="cont">
-                                <h6>Email: </h6>
-                                <p>contato@grupoetca.com.br</p>
-                                <p>atendimento@grupoetca.com.br</p>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <span class="icon"><i class="icofont icofont-clock-time"></i></span>
-                            <div class="cont">
-                                <h6>Horário de Funcionamento: </h6>
-                                <p>Segunda a Sexta: 7:30h às 17h</p>
-                            </div>
-                        </div>
-
-                        <div class="social item cont">
-                            <br><br>
-                            <h6>Siga-nos nas Redes Sociais</h6>
-                            <a href="https://www.instagram.com/etcaconsultoria/"><i
-                                    class="icofont icofont-social-instagram"></i></a>
-                            <a href="https://www.linkedin.com"><i class="icofont icofont-brand-linkedin"></i></a>
-                        </div>
+                        <h5>Nosso Endereço</h5>
+                        <p>Rua Dr. Aristides Cunha 320<br>Centro - Monte Santo de Minas - MG</p>
                     </div>
                 </div>
+                <div class="col-lg-4 col-md-6 mb-sm30">
+                    <div class="contact-card-item">
+                        <div class="contact-card-icon">
+                            <i class="icofont icofont-phone"></i>
+                        </div>
+                        <h5>Telefone e E-mail</h5>
+                        <p>(35) 99809-9671<br>contato@grupoetca.com.br<br>etcatopografia@yahoo.com.br</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="contact-card-item">
+                        <div class="contact-card-icon">
+                            <i class="icofont icofont-clock-time"></i>
+                        </div>
+                        <h5>Horário</h5>
+                        <p>Segunda - Sexta:<br>07:30h às 17:00h</p>
+                    </div>
+                </div>
+            </div>
 
-                <div class="col-lg-7">
-
-                    <form class="form" id="contact-form" method="post" action="contact.php">
+            <!-- CONTACT FORM -->
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <form class="form contact-custom-form" id="contact-form" method="post" action="contact.php">
 
                         <div class="messages"></div>
 
                         <div class="controls">
-
                             <div class="row">
-
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input id="form_name" type="text" name="name" placeholder="Nome"
+                                        <input id="form_name" type="text" name="name" placeholder="Seu Nome*"
                                             required="required">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input id="form_email" type="email" name="email" placeholder="Email"
+                                        <input id="form_email" type="email" name="email" placeholder="Seu E-mail*"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_phone" type="text" name="phone" placeholder="Seu Telefone">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_subject" type="text" name="subject" placeholder="Assunto*"
                                             required="required">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input id="form_subject" type="text" name="subject" placeholder="Titulo">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea id="form_message" name="message" placeholder="Mensagem" rows="4"
+                                        <textarea id="form_message" name="message" placeholder="Sua Mensagem*" rows="5"
                                             required="required"></textarea>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12 text-center">
-                                    <button type="submit" class="butn butn-bg"><span>Enviar Mensagem</span></button>
+                                <div class="col-md-12 text-center" style="margin-top: 15px;">
+                                    <button type="submit" class="contact-btn"><span>ENVIAR MENSAGEM</span></button>
                                 </div>
-
                             </div>
                         </div>
                     </form>
                 </div>
-
             </div>
+
         </div>
     </section>
 
-    <!-- End Contact ====
+    <!-- End Contact & Social Networks ====
         ======================================= -->
 
 
     <!-- =====================================
         ==== Start Map -->
     <section class="map-full" aria-label="Localização no mapa">
-        <iframe
-            src="https://www.google.com/maps?q=-21.18998179744296,-46.97596554061357&z=19&output=embed"
+        <iframe src="https://www.google.com/maps?q=-21.18998179744296,-46.97596554061357&z=19&output=embed"
             loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
             style="display:block;width:100%;height:450px;border:0;"
             title="Mapa ETCA - Avenida Dr. Aristides Cunha, 320, Centro, Monte Santo de Minas MG"></iframe>
@@ -1387,25 +1411,57 @@
     <!-- =====================================
         ==== Start Footer -->
 
-    <footer class="text-center">
+    <footer class="footer-custom">
         <div class="container">
+            <div class="row">
 
-            <!-- Logo -->
-            <a class="logo" href="#">
-                <img src="img/logo-dark.png" alt="logo">
-            </a>
+                <!-- Col 1: Logo & Text -->
+                <div class="col-lg-4 col-md-6 mb-sm50 footer-logo-col">
+                    <a class="logo" href="#">
+                        <img src="img/logo-light.png" alt="ETCA Logo" style="width: 150px; height: auto;">
+                    </a>
+                    <p>ETCA oferece serviços especializados em engenharia, topografia e consultoria ambiental,
+                        garantindo soluções técnicas seguras, eficientes e sustentáveis para o seu projeto.</p>
+                </div>
 
-            <div class="social">
+                <!-- Col 2: Links -->
+                <div class="col-lg-4 col-md-6 mb-sm50">
+                    <h5>Links Rápidos</h5>
+                    <ul class="footer-links">
+                        <li><a href="#" data-scroll-nav="0">Início</a></li>
+                        <li><a href="#" data-scroll-nav="1">Sobre nós</a></li>
+                        <li><a href="#" data-scroll-nav="3">Serviços</a></li>
+                        <li><a href="#" data-scroll-nav="2">Visão técnica</a></li>
+                        <li><a href="#" data-scroll-nav="4">Ativos imobiliários</a></li>
+                        <li><a href="#" data-scroll-nav="6">Contato</a></li>
+                    </ul>
+                </div>
 
-                <a href="https://www.instagram.com/etcaconsultoria/" target="_blank"><i
-                        class="icofont icofont-social-instagram"></i></a>
-                <a href="https://www.linkedin.com" target="_blank"><i class="icofont icofont-brand-linkedin"></i></a>
-
+                <!-- Col 3: Contact Info -->
+                <div class="col-lg-4 col-md-12 footer-contact-info">
+                    <h5>Contato e Localização</h5>
+                    <p>
+                        <i class="icofont icofont-phone"></i>
+                        <span>(35) 99809-9671</span>
+                    </p>
+                    <p>
+                        <i class="icofont icofont-email"></i>
+                        <span>contato@grupoetca.com.br<br>atendimento@grupoetca.com.br</span>
+                    </p>
+                    <p>
+                        <i class="icofont icofont-map"></i>
+                        <span>Rua Dr. Aristides Cunha 320, Centro<br>Monte Santo de Minas - MG</span>
+                    </p>
+                </div>
 
             </div>
 
-            <p>&copy; 2026 ETCA® - Todos os direitos reservados </p>
-
+            <!-- Bottom Copyright -->
+            <div class="row">
+                <div class="col-md-12 footer-bottom">
+                    <p>&copy; 2026 ETCA® - Todos os direitos reservados</p>
+                </div>
+            </div>
         </div>
     </footer>
 
