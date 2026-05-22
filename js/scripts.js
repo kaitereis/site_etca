@@ -241,7 +241,9 @@ $(window).on("load", function () {
                         }
                     }
                 },
-                error: function () {
+                error: function (xhr, status, error) {
+                    console.error("Erro no envio do formulário:", status, error);
+                    console.log("Resposta do servidor:", xhr.responseText);
                     var alertBox = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente mais tarde.</div>';
                     $('#contact-form').find('.messages').html(alertBox);
                 }
