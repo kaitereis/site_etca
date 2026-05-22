@@ -144,12 +144,71 @@ $(function () {
     // === End owl-carousel === //
 
 
-    // magnificPopup
+    // magnificPopup disabled for projects section to avoid conflicts with new modal
+    /*
     $('.gallery').magnificPopup({
         delegate: '.popimg',
         type: 'image',
         gallery: {
             enabled: true
+        }
+    });
+    */
+
+    // Project Gallery Images Data
+    var projectGalleries = {
+        1: ['img/portfolio/1.jpg', 'img/portfolio/1.jpg', 'img/portfolio/1.jpg'],
+        2: ['img/portfolio/2.jpg', 'img/portfolio/2.jpg', 'img/portfolio/2.jpg'],
+        3: ['img/portfolio/3.jpg', 'img/portfolio/3.jpg', 'img/portfolio/3.jpg'],
+        4: ['img/portfolio/4.jpg', 'img/portfolio/4.jpg', 'img/portfolio/4.jpg'],
+        5: ['img/portfolio/5.jpg', 'img/portfolio/5.jpg', 'img/portfolio/5.jpg'],
+        6: ['img/portfolio/6.jpg', 'img/portfolio/6.jpg', 'img/portfolio/6.jpg'],
+        7: ['img/portfolio/7.jpg', 'img/portfolio/7.jpg', 'img/portfolio/7.jpg'],
+        8: ['img/portfolio/8.jpg', 'img/portfolio/8.jpg', 'img/portfolio/8.jpg'],
+        9: ['img/portfolio/6.jpg', 'img/portfolio/6.jpg', 'img/portfolio/6.jpg'],
+        10: ['img/portfolio/9.jpg', 'img/portfolio/9.jpg', 'img/portfolio/9.jpg']
+    };
+
+    // Modal de Projetos (Saiba mais)
+    $('.saiba-mais-btn').on('click', function (e) {
+        e.preventDefault();
+        var cardContainer = $(this).closest('.items');
+        var projectId = cardContainer.data('project-id');
+        var title = cardContainer.find('.card-body h6').text();
+        var desc = cardContainer.find('.project-full-desc').html();
+        
+        // Popular dados do modal
+        $('#modal-project-title').text(title);
+        $('#modal-project-desc').html(desc);
+        
+        // Popular galeria
+        var galleryContainer = $('#modal-project-gallery');
+        galleryContainer.empty();
+        
+        var images = projectGalleries[projectId] || [];
+        images.forEach(function (src) {
+            galleryContainer.append('<img src="' + src + '" alt="' + title + '">');
+        });
+        
+        // Exibir modal
+        $('#project-modal').addClass('active');
+        $('body').css('overflow', 'hidden'); // Travar scroll da página
+    });
+
+    // Fechar modal
+    function closeProjectModal() {
+        $('#project-modal').removeClass('active');
+        $('body').css('overflow', ''); // Destravar scroll
+    }
+
+    $('#close-project-modal').on('click', function () {
+        closeProjectModal();
+    });
+
+    // Fechar modal ao clicar fora do conteúdo
+    $(window).on('click', function (e) {
+        if ($(e.target).is('#project-modal')) {
+            closeProjectModal();
         }
     });
 
