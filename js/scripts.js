@@ -41,12 +41,12 @@ $(function () {
         if (bodyScroll > 100) {
 
             navbar.addClass("nav-scroll");
-            logo.attr('src', 'img/logo-dark.png');
+            logo.attr('src', 'img/logo-dark.svg');
 
         } else {
 
             navbar.removeClass("nav-scroll");
-            logo.attr('src', 'img/logo-dark.png');
+            logo.attr('src', 'img/logo-dark.svg');
         }
     });
 
