@@ -155,25 +155,10 @@ $(function () {
     });
     */
 
-    // Project Gallery Images Data
-    var projectGalleries = {
-        1: ['img/portfolio/1.jpg', 'img/portfolio/1.jpg', 'img/portfolio/1.jpg'],
-        2: ['img/portfolio/2.jpg', 'img/portfolio/2.jpg', 'img/portfolio/2.jpg'],
-        3: ['img/portfolio/3.jpg', 'img/portfolio/3.jpg', 'img/portfolio/3.jpg'],
-        4: ['img/portfolio/4.jpg', 'img/portfolio/4.jpg', 'img/portfolio/4.jpg'],
-        5: ['img/portfolio/5.jpg', 'img/portfolio/5.jpg', 'img/portfolio/5.jpg'],
-        6: ['img/portfolio/6.jpg', 'img/portfolio/6.jpg', 'img/portfolio/6.jpg'],
-        7: ['img/portfolio/7.jpg', 'img/portfolio/7.jpg', 'img/portfolio/7.jpg'],
-        8: ['img/portfolio/8.jpg', 'img/portfolio/8.jpg', 'img/portfolio/8.jpg'],
-        9: ['img/portfolio/6.jpg', 'img/portfolio/6.jpg', 'img/portfolio/6.jpg'],
-        10: ['img/portfolio/9.jpg', 'img/portfolio/9.jpg', 'img/portfolio/9.jpg']
-    };
-
     // Modal de Projetos (Saiba mais)
     $('.saiba-mais-btn').on('click', function (e) {
         e.preventDefault();
         var cardContainer = $(this).closest('.items');
-        var projectId = cardContainer.data('project-id');
         var title = cardContainer.find('.card-body h6').text();
         var desc = cardContainer.find('.project-full-desc').html();
         
@@ -184,11 +169,22 @@ $(function () {
         // Popular galeria
         var galleryContainer = $('#modal-project-gallery');
         galleryContainer.empty();
+        galleryContainer.removeClass('cols-1 cols-2 cols-3');
         
-        var images = projectGalleries[projectId] || [];
-        images.forEach(function (src) {
-            galleryContainer.append('<img src="' + src + '" alt="' + title + '">');
-        });
+        var images = cardContainer.find('.project-gallery-images img');
+        if (images.length > 0) {
+            $('.modal-gallery-title').show();
+            galleryContainer.show();
+            galleryContainer.addClass('cols-' + Math.min(images.length, 3));
+            images.each(function () {
+                var src = $(this).attr('src');
+                var alt = $(this).attr('alt') || title;
+                galleryContainer.append('<img src="' + src + '" alt="' + alt + '">');
+            });
+        } else {
+            $('.modal-gallery-title').hide();
+            galleryContainer.hide();
+        }
         
         // Exibir modal
         $('#project-modal').addClass('active');

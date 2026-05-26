@@ -91,6 +91,22 @@
   justify-content: space-between;
 }
 
+.card-imovel .card-body p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+@media (min-width: 768px) {
+  .card-imovel .card-body p {
+    height: 165px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+  }
+}
+
 .card-imovel .btn {
   margin-top: 10px;
   background: #007bff;
@@ -1436,8 +1452,21 @@ a:hover {
 /* Gallery Grid */
 .modal-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
+}
+
+.modal-gallery-grid.cols-1 {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.modal-gallery-grid.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.modal-gallery-grid.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .modal-gallery-grid img {
@@ -1461,8 +1490,12 @@ a:hover {
     padding: 20px;
     width: 95%;
   }
-  .modal-gallery-grid {
+  .modal-gallery-grid,
+  .modal-gallery-grid.cols-1,
+  .modal-gallery-grid.cols-2,
+  .modal-gallery-grid.cols-3 {
     grid-template-columns: 1fr;
+    max-width: 100%;
   }
   .modal-gallery-grid img {
     height: 180px;
@@ -2578,7 +2611,7 @@ a:hover {
 .footer-custom {
   background: #111;
   color: #fff;
-  padding: 70px 0 30px 0;
+  padding: 30px 0 15px 0;
   text-align: left;
   border-top: 1px solid #222;
 }
@@ -2650,8 +2683,8 @@ a:hover {
 }
 
 .footer-custom .footer-bottom {
-  margin-top: 50px;
-  padding-top: 20px;
+  margin-top: 15px;
+  padding-top: 10px;
   border-top: 1px solid #222;
   text-align: center;
 }
